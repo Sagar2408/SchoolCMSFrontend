@@ -1,4 +1,5 @@
 // src/App.jsx
+import React from "react";
 import { Routes, Route } from 'react-router-dom'
 import { useAuthStore } from './context/AuthContext'
 import Login from './components/auth/Login'
@@ -49,7 +50,11 @@ import NewAdmission from './components/admissions/NewAdmission'
 import ReportsDashboard from './components/reports/ReportsDashboard'
 
 function App() {
-    const { user } = useAuthStore()
+    const { user, hasHydrated } = useAuthStore()
+
+    if (!hasHydrated) {
+        return <div className="h-screen flex items-center justify-center">Loading...</div>
+    }
 
     if (!user) {
         return <Login />
